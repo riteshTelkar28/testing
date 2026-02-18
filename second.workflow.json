@@ -1,0 +1,24 @@
+{
+  "orderPreparation": {},
+  "instructions": [
+    {
+      "TYPE": "Execute.Named",
+      "jobName": "job",
+      "label": "job"
+    }
+  ],
+  "timeZone": "Asia/Kolkata",
+  "jobs": {
+    "job": {
+      "parallelism": 1,
+      "graceTimeout": 1,
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "echo \"second\"",
+        "v1Compatible": false
+      },
+      "agentName": "agent_283",
+      "withSubagentClusterIdExpr": false
+    }
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "orderPreparation": {
+    "parameters": {
+      "flight_number": {
+        "type": "String",
+        "default": "\"AF8000\""
+      },
+      "booking_code": {
+        "type": "String",
+        "default": "\"CY8ZR000\""
+      }
+    },
+    "allowUndeclared": false
+  },
+  "instructions": [
+    {
+      "TYPE": "Execute.Named",
+      "jobName": "job1a",
+      "label": "job1a"
+    },
+    {
+      "TYPE": "Execute.Named",
+      "jobName": "job1b",
+      "label": "job1b"
+    },
+    {
+      "TYPE": "Fork",
+      "branches": [
+        {
+          "id": "branch1",
+          "workflow": {
+            "instructions": [
+              {
+                "TYPE": "Execute.Named",
+                "jobName": "job2_1a",
+                "label": "job2_1a"
+              },
+              {
+                "TYPE": "Execute.Named",
+                "jobName": "job2_1b",
+                "label": "job2_1b"
+              },
+              {
+                "TYPE": "Execute.Named",
+                "jobName": "job2_1c",
+                "label": "job2_1c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "branch2",
+          "workflow": {
+            "instructions": [
+              {
+                "TYPE": "Execute.Named",
+                "jobName": "job2_2a",
+                "label": "job2_2a"
+              },
+              {
+                "TYPE": "Execute.Named",
+                "jobName": "job2_2b",
+                "label": "job2_2b"
+              }
+            ]
+          }
+        }
+      ],
+      "joinIfFailed": false
+    },
+    {
+      "TYPE": "Execute.Named",
+      "jobName": "job3",
+      "label": "job3"
+    }
+  ],
+  "timeZone": "Etc/UTC",
+  "jobs": {
+    "job1a": {
+      "agentName": "primaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job1a\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF801A\"\nNEW_BOOOKING_CODE=\"CY8ZR01A\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 5",
+        "env": {
+          "FLIGHT_NUMBER": "$flight_number",
+          "BOOKING_CODE": "$booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 100,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    },
+    "job1b": {
+      "agentName": "primaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job1b\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF801B\"\nNEW_BOOOKING_CODE=\"CY8ZR01B\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 15",
+        "env": {
+          "FLIGHT_NUMBER": "$new_flight_number",
+          "BOOKING_CODE": "$new_booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 100,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    },
+    "job2_1a": {
+      "agentName": "primaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job2_1a\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF821A\"\nNEW_BOOOKING_CODE=\"CY8ZR21A\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 5",
+        "env": {
+          "FLIGHT_NUMBER": "$new_flight_number",
+          "BOOKING_CODE": "$new_booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 1,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    },
+    "job2_1b": {
+      "agentName": "primaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job2_1b\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF821B\"\nNEW_BOOOKING_CODE=\"CY8ZR21B\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 5",
+        "env": {
+          "FLIGHT_NUMBER": "$new_flight_number",
+          "BOOKING_CODE": "$new_booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 1,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    },
+    "job2_1c": {
+      "agentName": "primaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job2_1c\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF821C\"\nNEW_BOOOKING_CODE=\"CY8ZR21C\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 5",
+        "env": {
+          "FLIGHT_NUMBER": "$new_flight_number",
+          "BOOKING_CODE": "$new_booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 1,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    },
+    "job2_2a": {
+      "agentName": "primaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job2_2a\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF822A\"\nNEW_BOOOKING_CODE=\"CY8ZR22A\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 5",
+        "env": {
+          "FLIGHT_NUMBER": "$new_flight_number",
+          "BOOKING_CODE": "$new_booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 1,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    },
+    "job2_2b": {
+      "agentName": "primaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job2_2b\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF822B\"\nNEW_BOOOKING_CODE=\"CY8ZR22B\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 7",
+        "env": {
+          "FLIGHT_NUMBER": "$new_flight_number",
+          "BOOKING_CODE": "$new_booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 1,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    },
+    "job3": {
+      "agentName": "secondaryAgent",
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "#!/bin/bash\n\necho \"running job3\"\n\necho \"CURRENT FLIGHT_NUMBER = $FLIGHT_NUMBER\"\necho \"CURRENT BOOKING_CODE = $BOOKING_CODE\"\n\nNEW_FLIGHT_NUMBER=\"AF8300\"\nNEW_BOOOKING_CODE=\"CY8ZR300\"\n\necho \"NEW FLIGHT_NUMBER = $NEW_FLIGHT_NUMBER\"\necho \"NEW BOOKING_CODE = $NEW_BOOKING_CODE\"\n\necho \"new_flight_number=$NEW_FLIGHT_NUMBER\" >> $JS7_RETURN_VALUES\necho \"new_booking_code=$NEW_BOOKING_CODE\" >> $JS7_RETURN_VALUES\n\nsleep 5",
+        "env": {
+          "FLIGHT_NUMBER": "$new_flight_number",
+          "BOOKING_CODE": "$new_booking_code"
+        },
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "parallelism": 1,
+      "graceTimeout": 15,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false
+    }
+  }
+}
