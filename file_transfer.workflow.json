@@ -1,0 +1,32 @@
+{
+  "orderPreparation": {},
+  "instructions": [
+    {
+      "TYPE": "Execute.Named",
+      "jobName": "job",
+      "label": "job"
+    }
+  ],
+  "timeZone": "Asia/Kolkata",
+  "jobs": {
+    "job": {
+      "agentName": "a",
+      "withSubagentClusterIdExpr": false,
+      "executable": {
+        "TYPE": "ShellScriptExecutable",
+        "script": "\"$JS7_YADE_BIN\" \\\n  -settings $YADEFILEGLOBAL \\\n  -profile profileGet\n  \n\"$JS7_YADE_BIN\" \\\n  -settings $YADEFILEGLOBAL \\\n  -profile  moveRenamed\n  \n ",
+        "v1Compatible": false
+      },
+      "skipIfNoAdmissionForOrderDay": false,
+      "killAtEndOfAdmissionPeriod": false,
+      "parallelism": 1,
+      "graceTimeout": 1,
+      "failOnErrWritten": false,
+      "warnOnErrWritten": false,
+      "jobResourceNames": [
+        "transfertResource"
+      ],
+      "isNotRestartable": false
+    }
+  }
+}
