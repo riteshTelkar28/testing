@@ -12,9 +12,13 @@
       "agentName" : "a",
       "withSubagentClusterIdExpr" : false,
       "executable" : {
-        "TYPE" : "ShellScriptExecutable",
-        "script" : "echo \"hello world\"",
-        "v1Compatible" : false
+        "TYPE" : "InternalExecutable",
+        "className" : "com.sos.jitl.jobs.file.CopyFileJob",
+        "internalType" : "JITL",
+        "arguments" : {
+          "source_file" : "\"C:\\\\Users\\\\Ritesh Telkar\\\\Desktop\\\\testing\\\\t1\\\\resultset.txt\"",
+          "target_file" : "\"C:\\\\Users\\\\Ritesh Telkar\\\\Desktop\\\\testing\\\\t3\""
+        }
       },
       "skipIfNoAdmissionForOrderDay" : false,
       "killAtEndOfAdmissionPeriod" : false,
@@ -22,6 +26,8 @@
       "graceTimeout" : 1,
       "failOnErrWritten" : false,
       "warnOnErrWritten" : false,
+      "title" : "Copies one or more files",
+      "documentationName" : "CopyFileJob",
       "isNotRestartable" : false
     }
   }

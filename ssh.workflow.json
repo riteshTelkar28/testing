@@ -1,0 +1,37 @@
+{
+  "TYPE" : "Workflow",
+  "version" : "1.8.3",
+  "timeZone" : "Asia/Kolkata",
+  "instructions" : [ {
+    "TYPE" : "Execute.Named",
+    "jobName" : "job",
+    "label" : "job"
+  } ],
+  "jobs" : {
+    "job" : {
+      "agentName" : "a",
+      "withSubagentClusterIdExpr" : false,
+      "executable" : {
+        "TYPE" : "InternalExecutable",
+        "className" : "com.sos.jitl.jobs.ssh.SSHJob",
+        "internalType" : "JITL",
+        "arguments" : {
+          "host" : "\"172.22.53.139\"",
+          "auth_method" : "\"password\"",
+          "user" : "\"ritesh\"",
+          "password" : "\"ritesh123\"",
+          "command" : "\"ls\""
+        }
+      },
+      "skipIfNoAdmissionForOrderDay" : false,
+      "killAtEndOfAdmissionPeriod" : false,
+      "parallelism" : 1,
+      "graceTimeout" : 1,
+      "failOnErrWritten" : false,
+      "warnOnErrWritten" : false,
+      "title" : "Execute commands or executable scripts by use of an SSH connection on a remote server.",
+      "documentationName" : "SSHJob",
+      "isNotRestartable" : false
+    }
+  }
+}
